@@ -1,4 +1,5 @@
 #include <pcap/pcap.h>
+
 #include <mruby.h>
 #include <mruby/class.h>
 #include <mruby/variable.h>
@@ -45,3 +46,8 @@ mrb_mruby_capp_gem_init(mrb_state* mrb) {
 
     mrb_define_class_method(mrb, capp, "live", capp_live, MRB_ARGS_REQ(1) | MRB_ARGS_OPT(3));
 }
+
+void
+mrb_mruby_capp_gem_final(mrb_state* mrb) {
+}
+
