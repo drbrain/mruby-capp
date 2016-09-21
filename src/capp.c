@@ -30,7 +30,7 @@ capp_live(mrb_state *mrb, mrb_value self) {
         mrb_raisef(mrb, E_RUNTIME_ERROR, "%s", errbuf);
     }
 
-    capp = mrb_obj_value(mrb_data_object_alloc(mrb, mrb_class(mrb, self), handle, &capp_type));
+    capp = mrb_obj_value(Data_Wrap_Struct(mrb, mrb_class(mrb, self), &capp_type, handle));
 
     return capp;
 }
@@ -40,6 +40,8 @@ mrb_mruby_capp_gem_init(mrb_state* mrb) {
     struct RClass *capp;
 
     capp = mrb_define_class(mrb, "Capp", mrb->object_class);
+
+    MRB_SET_INSTANCE_TT(capp, MRB_TT_DATA);
 
     mrb_define_class_method(mrb, capp, "live", capp_live, MRB_ARGS_REQ(1) | MRB_ARGS_OPT(3));
 }
